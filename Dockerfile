@@ -48,15 +48,9 @@ RUN mkdir -p /home/opam/src/dmtcp \
  && cd /home/opam/src/dmtcp \
  && curl -sL https://github.com/dmtcp/dmtcp/archive/$DMTCP_VERSION.tar.gz | \
     tar xz --strip-components=1 \
- && ./configure --prefix=/usr/local && make -j 2
-
-USER root
-
-WORKDIR /home/opam/src/dmtcp
-
-RUN make install
-
-USER opam
+ && ./configure --prefix=/usr/local && make -j 2 \
+ && sudo make install \
+ && cd /home/opam && rm -rf src
 
 ### ---------------------------------------------------------------------------
 ### Startup configuration.
